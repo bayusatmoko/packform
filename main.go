@@ -1,12 +1,14 @@
 package main
 
 import (
+	"github.com/bayusatmoko/packform/controllers"
+	"github.com/bayusatmoko/packform/db"
 	"github.com/bayusatmoko/packform/populate"
 	"github.com/gin-gonic/gin"
-	"github.com/bayusatmoko/packform/controllers"
 )
 
 func main() {
+	db.InitDB()
 	populate.Seed()
 	r := gin.Default()
 	r.GET("/orders", controllers.GetOrders)

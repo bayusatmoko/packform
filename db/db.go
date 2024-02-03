@@ -9,16 +9,23 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func GetDB() *sql.DB {
+var db *sql.DB
+
+func InitDB() {
 	envError := godotenv.Load((".env"))
 	if envError != nil {
 		fmt.Printf("Could not load env file")
 		os.Exit(1)
 	}
 
-	db, err := sql.Open("postgres", os.Getenv("DB_STRING_URL"))
+	var err error
+
+	db, err = sql.Open("postgres", os.Getenv("DB_STRING_URL"))
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func GetDB() *sql.DB {
 	return db
 }
