@@ -11,12 +11,26 @@ import (
 )
 
 func GetOrders(c *gin.Context) {
+	// parameters
+	keyword := c.Query("keyword")
+	offset := c.Query(("offset"))
+	startDate := c.Query(("startDate"))
+	endDate := c.Query(("endDate"))
+	startDateString := "'"
+	startDateString += startDate
+	startDateString += "'"
+	endDateString := "'"
+	endDateString += endDate
+	endDateString += "'"
+	fmt.Println(keyword)
+	fmt.Println(offset)
+
 	envError := godotenv.Load((".env"))
 	if envError != nil {
 		fmt.Printf("Could not load env file")
 		os.Exit(1)
 	}
-	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
+	db, err := sql.Open("postgres", os.Getenv("DB_STRING_URL"))
 	if err != nil {
 		log.Fatal(err)
 	}
