@@ -10,5 +10,6 @@ func main() {
 	populate.Seed()
 	r := gin.Default()
 	r.GET("/orders", controllers.GetOrders)
+	r.SetTrustedProxies(nil)
 	r.Run()
 }

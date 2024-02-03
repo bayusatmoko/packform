@@ -5,6 +5,7 @@ services:
     container_name: golang_container
     environment:
       - DB_STRING_URL=${DB_STRING_URL}
+      - GIN_MODE=${GIN_MODE}
     build: .
     ports:
       - 8080:8080
@@ -21,6 +22,6 @@ services:
       - ~/apps/postgres:/var/lib/postgresql/data
       - ./populate:/sql
     environment:
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_USER=root
-      - POSTGRES_DB=Satmoko
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}

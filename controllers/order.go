@@ -1,9 +1,8 @@
 package controllers
 
 import (
-	"fmt"
-	"github.com/gin-gonic/gin"
 	"github.com/bayusatmoko/packform/models"
+	"github.com/gin-gonic/gin"
 )
 
 var orderModel = new(models.OrderModel)
@@ -14,21 +13,15 @@ func GetOrders(c *gin.Context) {
 	offset := c.Query(("offset"))
 	startDate := c.Query(("startDate"))
 	endDate := c.Query(("endDate"))
-	startDateString := "'"
-	startDateString += startDate
-	startDateString += "'"
-	endDateString := "'"
-	endDateString += endDate
-	endDateString += "'"
-	fmt.Println(keyword)
-	fmt.Println(offset)
 
-	orders, total, err := orderModel.All()
+	orders, total, err := orderModel.All(startDate, endDate, keyword, offset)
+	if err != nil {
+		panic(err)
+	}
 
 	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
 	c.JSON(200, gin.H{
 		"orders": orders,
-		"rows": total,
+		"rows":   total,
 	})
-	panic((err))
 }
