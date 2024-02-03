@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   app:
-    container_name: golang_container
+    container_name: packform-be
     environment:
       - DB_STRING_URL=${DB_STRING_URL}
       - GIN_MODE=${GIN_MODE}
