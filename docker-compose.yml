@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  app:
+    container_name: golang_container
+    environment:
+      - DB_STRING_URL=${DB_STRING_URL}
+    build: .
+    ports:
+      - 8080:8080
+    restart: on-failure
+    volumes:
+      - .:/apps
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+      - ./populate:/sql
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=root
+      - POSTGRES_DB=Satmoko
